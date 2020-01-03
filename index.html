@@ -1,3 +1,4 @@
+<!-- This is a Landing Page! -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Slap Jack</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    Testing
+    <!-- check out emmet documentation -->
+    <nav class="navbar sticky-top navbar-dark bg-dark">
+        <span class="navbar-text" id="currentscore">
+            <div class="row">
+                <div class="col-sm">
+                    <button type="button" class="btn btn-danger" id="begin">Start
+                    </button>
+                </div>
+            </div>
+        </span>
+        <span class="navbar-text" id="secondsLeft">
+                Timer : 75
+                </span>
+    </nav>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container text-center">
+          <h1 class="display-4">Slap Jack</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="card" style="width: 18rem;">
+                <h1 class="align-self-center">Player 1</h1>
+                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <h1 class="align-self-center">Cards</h1>
+                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <h1 class="align-self-center">Player 2</h1>
+                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+            
+            
+    </div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <button style = "width: 40% " type="button" class="btn btn-primary btn-lg">Slap!</button>
+        </div>
+    </div>
+    
 </body>
 </html>
