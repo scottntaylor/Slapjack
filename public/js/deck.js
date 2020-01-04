@@ -8,15 +8,15 @@ class Deck {
     //creating a function that will generate the deck
     generate_deck() {
         let card = (suit, value) => {
-            this.name = value + ' of ' + suit;
+            this.name = value + suit;
             this.suit = suit;
             this.value = value;
 
-            return {name:this.name, suit:this.suit, value:this.value}
+            return {name:this.name}
         }
 
         let values = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
-        let suits = ['Clubs', 'Diamonds', 'Spades', 'Hearts'];
+        let suits = ['C', 'D', 'S', 'H'];
 
         //creating a loop to push each card object to the deck
         for(let s = 0; s < suits.length; s++){
