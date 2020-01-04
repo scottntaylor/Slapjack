@@ -81,11 +81,14 @@ deck = new Deck();
 deck.generate_deck();
 
 //calling the print function
-//deck.print_deck();
+deck.print_deck();
 
 //calling the shuffle function and print function
 deck.shuffle();
-//deck.print_deck();
+deck.print_deck();
 
 console.log(deck.deal());
+
+module.exports = Deck;
+
 
