@@ -22,7 +22,7 @@ function getDeck() {
 };
 
 
-//draw a card for player
+
 // function drawCard(cardCount) {
 //     $.ajax({
 //         url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/draw/?count=" + cardCount,
@@ -44,7 +44,4 @@ function getDeck() {
 // };
 
 // function dealCardsP1(){
-//     for (var i = 0; i <26; i++){
-//         drawCard();
-//     }
-// }
+
