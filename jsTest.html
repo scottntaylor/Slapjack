@@ -74,10 +74,16 @@
 
 <script>
 
+
+//Steps
+// 1. Create Deck with API Call
+// 2. 
+
     // let deck = [];
     let p1Hand = [];
     // let p2Hand = [];
     // let cardPile = [];
+
 
     function playGame() {
         getDeck();
@@ -96,15 +102,15 @@
             console.log(newDeck);
             // defines deck ID for the game to refference
             thisDeck = newDeck.deck_id;
-            dealDeck(thisDeck);
+            dealDeck(thisDeck, stringQuery);
         })
 
     };
 
     //Deal Deck into piles
-    function dealDeck(thisDeck) {
+    function dealDeck(thisDeck, stringQuery) {
         $.ajax({
-            url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/pile/p1hand/add/?cards=" + p1Hand,
+            url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/pile/p1hand/add/?cards=" + stringQuery,
             method: "GET"
         }).then(function (p1Pile) {
             console.log(p1Pile);
@@ -176,7 +182,7 @@
         //creating a deal function, deal the top card from the array of the deck and return(shift) the value
         deal() {
             let dealt_card = this.deck.shift();
-            this.dealt_cards.push(dealt_card);
+            this.dealt_cards.push(dealt_card.name);
             return dealt_card;
         }
 
@@ -215,11 +221,14 @@
     function pushToP1(Deck) {
         for (var i = 0; i < 26; i++) {
             // console.log(deck.deal());
-         p1Hand.push(deck.deal());
+         p1Hand.push(deck.deal().name);
          
 
      }
-     console.log(p1Hand);
+    //  console.log(p1Hand);
+    //  console.log(p1Hand.toString());
+     let stringQuery = p1Hand.toString();
+     console.log(stringQuery);
     }
 pushToP1(Deck);
 
