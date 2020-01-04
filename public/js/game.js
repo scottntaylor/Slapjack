@@ -3,7 +3,7 @@ let p1Hand = [];
 let p2Hand = [];
 let cardPile = [];
 
-
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
 //API call for new deck
 getDeck();
@@ -24,29 +24,40 @@ function getDeck() {
 };
 
 
-//draw a card for player
-function drawCard(cardCount) {
-    $.ajax({
-        url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/draw/?count=" + cardCount,
-        method: "GET"
-    }).then(function (drawnCard) {
 
-        console.log(drawnCard);
-        // grabs card code so that card can be assigned to proper hand
-        for (var i = 0; i < cardCount; i++) {
-            cardName.push(drawnCard.cards[i].code);
-        }
-        p1Hand.push(drawnCard.cards[0].value);
-        p1Hand.push(drawnCard.cards[2].value);
-        dealerCards.push(drawnCard.cards[1].value);
-        dealerCards.push(drawnCard.cards[3].value);
-        firstDeal();
+//Deal Deck into piles
+function dealDeck(cardCount) {
+    $.ajax({
+        url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/pile/" + p1Hand + "/add/",
+        method: "GET"
+    }).then(function (p1Pile) {
+
     })
 
-};
 
-function dealCardsP1(){
-    for (var i = 0; i <26; i++){
-        drawCard();
-    }
-}
+// //draw a card for player
+// function drawCard(cardCount) {
+//     $.ajax({
+//         url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/draw/?count=" + cardCount,
+//         method: "GET"
+//     }).then(function (drawnCard) {
+
+//         console.log(drawnCard);
+//         // grabs card code so that card can be assigned to proper hand
+//         for (var i = 0; i < cardCount; i++) {
+//             cardName.push(drawnCard.cards[i].code);
+//         }
+//         p1Hand.push(drawnCard.cards[0].value);
+//         p1Hand.push(drawnCard.cards[2].value);
+//         dealerCards.push(drawnCard.cards[1].value);
+//         dealerCards.push(drawnCard.cards[3].value);
+//         firstDeal();
+//     })
+
+// };
+
+// function dealCardsP1(){
+//     for (var i = 0; i <=26; i++){
+//         drawCard();
+//     }
+// }
