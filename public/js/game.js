@@ -3,8 +3,6 @@ let p1Hand = [];
 let p2Hand = [];
 let cardPile = [];
 
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
 //API call for new deck
 getDeck();
 
@@ -25,17 +23,6 @@ function getDeck() {
 
 
 
-//Deal Deck into piles
-function dealDeck(cardCount) {
-    $.ajax({
-        url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/pile/" + p1Hand + "/add/",
-        method: "GET"
-    }).then(function (p1Pile) {
-
-    })
-
-
-// //draw a card for player
 // function drawCard(cardCount) {
 //     $.ajax({
 //         url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/draw/?count=" + cardCount,
@@ -57,7 +44,4 @@ function dealDeck(cardCount) {
 // };
 
 // function dealCardsP1(){
-//     for (var i = 0; i <=26; i++){
-//         drawCard();
-//     }
-// }
+
