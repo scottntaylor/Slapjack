@@ -89,10 +89,11 @@
         deck.generate_deck();
         deck.shuffle();
         deck.print_deck();
-        deck.dealToP1();
+        deck.deal();
+        // deck.dealToP1();
         // console.log(Deck.dealt_cards)
         console.log(p1Hand);
-        deck.dealToP2();
+        // deck.dealToP2();
         console.log(p2Hand);
 
 
@@ -162,6 +163,7 @@
                 this.deck[randIndex] = tempVal;
             }
         }
+
         //creating a deal to Player 1 function, deal the top card from the array of the deck and return(shift) the value
         dealToP1() {
             let dealt_card = this.deck.shift();
@@ -181,6 +183,13 @@
             p2Hand.push(dealt_card.imageName);
             return dealt_card;
 
+        }
+        // Creating a function to loop deal to p1 and deal to p2 for the full deck
+        deal() {
+            for (var a = 0; a < 52; a++) {
+                dealToP1();
+                dealToP2();
+            }
         }
 
         //create a replace function to return most recently dealt card on the deck
@@ -212,6 +221,7 @@
     // module.exports = Deck;
 
 
+ 
 
 
     //Function to push card values to array
