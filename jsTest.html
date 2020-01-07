@@ -18,7 +18,7 @@
 <body>
     <!-- check out emmet documentation -->
     <nav class="navbar sticky-top navbar-dark bg-dark">
-        <span class="navbar-text" id="currentscore">
+        <span class="navbar-text" id="start">
             <div class="row">
                 <div class="col-sm">
                     <button type="button" class="btn btn-danger" id="begin">Start
@@ -39,26 +39,23 @@
         <div class="row">
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Player 1</h1>
-                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <img src="https://st.depositphotos.com/1363007/1810/i/450/depositphotos_18105995-stock-photo-card-back.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text">26</p>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Cards</h1>
                 <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text">0</p>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Player 2</h1>
-                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <img src="https://st.depositphotos.com/1363007/1810/i/450/depositphotos_18105995-stock-photo-card-back.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text">26</p>
                 </div>
             </div>
 
@@ -84,20 +81,26 @@
     let p2Hand = [];
     let cardPile = [];
 
+  
 
     function playGame(dealt_cards) {
         deck.generate_deck();
         deck.shuffle();
         deck.print_deck();
-        deck.deal();
-        // deck.dealToP1();
+        // deck.deal();
+        deck.dealToP1();
         // console.log(Deck.dealt_cards)
         console.log(p1Hand);
-        // deck.dealToP2();
+        deck.dealToP2();
         console.log(p2Hand);
 
 
     }
+      //Click handler to start game
+$("#start").on("click", function (event) {
+    event.preventDefault();
+   playGame(Deck);
+})
 
     //Logic to generate values for ajax call
 
@@ -280,7 +283,7 @@
     //     })
     // };
 
-    playGame(Deck);
+    // playGame(Deck);
 
 
 
