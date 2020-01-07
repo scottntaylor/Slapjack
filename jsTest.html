@@ -83,7 +83,7 @@
 
   
 
-    function playGame(dealt_cards) {
+    function setupGame(dealt_cards) {
         deck.generate_deck();
         deck.shuffle();
         deck.print_deck();
@@ -99,7 +99,7 @@
       //Click handler to start game
 $("#start").on("click", function (event) {
     event.preventDefault();
-   playGame(Deck);
+   setupGame(Deck);
 })
 
     //Logic to generate values for ajax call
