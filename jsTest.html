@@ -85,10 +85,13 @@
     // let cardPile = [];
 
 
-    function playGame() {
+    function playGame(dealt_cards) {
         deck.generate_deck();
         deck.shuffle();
         deck.print_deck();
+        deck.deal();
+        // console.log(Deck.dealt_cards)
+        console.log(p1Hand);
 
 
     }
@@ -137,7 +140,7 @@
             } else {
                 //for every card in the deck, print that card to the console
                 for (let c = 0; c < this.deck.length; c++) {//c = index of each card
-                    console.log(this.deck[c]);
+                    // console.log(this.deck[c]);
                 }
             }
         }
@@ -161,7 +164,11 @@
         deal() {
             let dealt_card = this.deck.shift();
             this.dealt_cards.push(dealt_card.name);
+            this.dealt_cards.push(dealt_card.imageName);
+            p1Hand.push(dealt_card.name);
+            p1Hand.push(dealt_card.imageName);
             return dealt_card;
+
         }
 
         //create a replace function to return most recently dealt card on the deck
@@ -208,7 +215,7 @@
         // let stringQuery = p1Hand.toString();
         // console.log(stringQuery);
     }
-    pushToP1(Deck);
+    // pushToP1(Deck);
 
 
     // // creates a new, shuffled deck to play this game with
