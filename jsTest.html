@@ -81,17 +81,19 @@
 
     // let deck = [];
     let p1Hand = [];
-    // let p2Hand = [];
-    // let cardPile = [];
+    let p2Hand = [];
+    let cardPile = [];
 
 
     function playGame(dealt_cards) {
         deck.generate_deck();
         deck.shuffle();
         deck.print_deck();
-        deck.deal();
+        deck.dealToP1();
         // console.log(Deck.dealt_cards)
         console.log(p1Hand);
+        deck.dealToP2();
+        console.log(p2Hand);
 
 
     }
@@ -160,13 +162,23 @@
                 this.deck[randIndex] = tempVal;
             }
         }
-        //creating a deal function, deal the top card from the array of the deck and return(shift) the value
-        deal() {
+        //creating a deal to Player 1 function, deal the top card from the array of the deck and return(shift) the value
+        dealToP1() {
             let dealt_card = this.deck.shift();
             this.dealt_cards.push(dealt_card.name);
             this.dealt_cards.push(dealt_card.imageName);
             p1Hand.push(dealt_card.name);
             p1Hand.push(dealt_card.imageName);
+            return dealt_card;
+
+        }
+        //creating a deal to Player 2 function, deal the top card from the array of the deck and return(shift) the value
+        dealToP2() {
+            let dealt_card = this.deck.shift();
+            this.dealt_cards.push(dealt_card.name);
+            this.dealt_cards.push(dealt_card.imageName);
+            p2Hand.push(dealt_card.name);
+            p2Hand.push(dealt_card.imageName);
             return dealt_card;
 
         }
