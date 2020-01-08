@@ -64,9 +64,12 @@
 
         </div>
         <div class="container">
-            <div class="row justify-content-md-center">
-                <button style="width: 40% " type="button" class="btn btn-primary btn-lg">Slap!</button>
-            </div>
+                <div class="row ">
+                    <button style="width: 40% " type="button" class="btn btn-primary btn-lg">Player1 Slap!</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button style="width:40% " type="button" class="btn btn-primary btn-lg">Player2 Slap!</button>
+                </div>
         </div>
 
 </body>
@@ -85,15 +88,17 @@
 
     function setupGame(dealt_cards) {
         deck.generate_deck();
+        console.log(deck)
         deck.shuffle();
         deck.print_deck();
+        
         deck.deal();
         // deck.dealToP1();
         // console.log(Deck.dealt_cards)
         console.log(deck.p1Hand);
         // deck.dealToP2();
         console.log(deck.p2Hand);
-
+       
 
     }
     function playGame(playedCards) {
@@ -201,10 +206,22 @@
 
         }
         play(){
-            for(var e = 0; e < 26; e++){
-                this.playCard("p1");
-                this.playCard("p2");
-            }
+            var p1 = true;
+            let self = this
+            setInterval(function (){
+                if (p1===true){
+                    self.playCard("p1");
+                    p1=false;
+                    console.log(self.cardPile);
+                }
+                else{
+                self.playCard("p2");
+                p1=true;
+                console.log(self.cardPile);
+                }
+            },2000)
+
+            
         }
 
         getHand(player) {
@@ -234,17 +251,7 @@
     //creating a new instance of deck object
     deck = new Deck();
 
-    //calling the function with new instance
-    deck.generate_deck();
-
-    //calling the print function
-    deck.print_deck();
-
-    //calling the shuffle function and print function
-    deck.shuffle();
-    deck.print_deck();
-
-    // console.log(deck.deal());
+    
 
     // module.exports = Deck;
 
