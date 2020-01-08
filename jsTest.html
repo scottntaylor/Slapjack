@@ -18,7 +18,7 @@
 <body>
     <!-- check out emmet documentation -->
     <nav class="navbar sticky-top navbar-dark bg-dark">
-        <span class="navbar-text" id="currentscore">
+        <span class="navbar-text" id="start">
             <div class="row">
                 <div class="col-sm">
                     <button type="button" class="btn btn-danger" id="begin">Start
@@ -27,7 +27,7 @@
             </div>
         </span>
         <span class="navbar-text" id="secondsLeft">
-            Timer : 75
+            Timer : 00
         </span>
     </nav>
     <div class="jumbotron jumbotron-fluid">
@@ -39,26 +39,25 @@
         <div class="row">
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Player 1</h1>
-                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <img src="https://st.depositphotos.com/1363007/1810/i/450/depositphotos_18105995-stock-photo-card-back.jpg"
+                    class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text" id="p1CardTotal">26</p>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Cards</h1>
                 <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text" id="mainCardTotal">0</p>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Player 2</h1>
-                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <img src="https://st.depositphotos.com/1363007/1810/i/450/depositphotos_18105995-stock-photo-card-back.jpg"
+                    class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                    <p class="card-text" id="p2CardTotal">26</p>
                 </div>
             </div>
 
@@ -74,44 +73,41 @@
 
 <script>
 
-    // let deck = [];
-    let p1Hand = [];
-    // let p2Hand = [];
-    // let cardPile = [];
+    var totalSeconds = 00;
+    //Steps
+    // 1. Create Deck with API Call
+    // 2. 
 
-    function playGame() {
-        getDeck();
+    // let deck = [];
+
+
+
+
+    function setupGame(dealt_cards) {
+        deck.generate_deck();
+        deck.shuffle();
+        deck.print_deck();
+        deck.deal();
+        // deck.dealToP1();
+        // console.log(Deck.dealt_cards)
+        console.log(deck.p1Hand);
+        // deck.dealToP2();
+        console.log(deck.p2Hand);
 
 
     }
+    function playGame(playedCards) {
 
-    // creates a new, shuffled deck to play this game with
-    function getDeck() {
-        $.ajax({
-            url: "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
-            method: "GET"
-        }).then(function (newDeck) {
-            console.log("Game Deck");
-            console.log("------------------");
-            console.log(newDeck);
-            // defines deck ID for the game to refference
-            thisDeck = newDeck.deck_id;
-            dealDeck(thisDeck);
-        })
-
-    };
-
-    //Deal Deck into piles
-    function dealDeck(thisDeck) {
-        $.ajax({
-            url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/pile/p1hand/add/?cards=" + p1Hand,
-            method: "GET"
-        }).then(function (p1Pile) {
-            console.log(p1Pile);
-        })
-    };
-
-    playGame();
+        deck.p1PlayCard();
+        console.log(deck.cardPile);
+    }
+    //Click handler to start game
+    $("#start").on("click", function (event) {
+        event.preventDefault();
+        setupGame(Deck);
+        startTimer();
+        playGame();
+    })
 
     //Logic to generate values for ajax call
 
@@ -121,6 +117,10 @@
         constructor() {
             this.deck = [];
             this.dealt_cards = [];
+            this.playedCards = [];
+            this.p1Hand = [];
+            this.p2Hand = [];
+            this.cardPile = [];
         }
         //creating a function that will generate the deck
         generate_deck() {
@@ -128,11 +128,15 @@
                 this.name = value + suit;
                 // this.suit = suit;
                 // this.value = value;
+                this.imageName = "https://deckofcardsapi.com/static/img/" + value + suit + ".png"
 
-                return { name: this.name }
+                return {
+                    name: this.name,
+                    imageName: this.imageName
+                }
             }
 
-            let values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+            let values = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A'];
             let suits = ['C', 'D', 'S', 'H'];
 
             //creating a loop to push each card object to the deck
@@ -173,12 +177,44 @@
                 this.deck[randIndex] = tempVal;
             }
         }
-        //creating a deal function, deal the top card from the array of the deck and return(shift) the value
-        deal() {
+
+        //creating a deal to Player 1 function, deal the top card from the array of the deck and return(shift) the value
+        dealToP1() {
             let dealt_card = this.deck.shift();
-            this.dealt_cards.push(dealt_card);
+            this.dealt_cards.push(dealt_card.name);
+            this.dealt_cards.push(dealt_card.imageName);
+            // p1Hand.push(dealt_card.name);
+            this.p1Hand.push(dealt_card.imageName);
             return dealt_card;
+
         }
+        //creating a deal to Player 2 function, deal the top card from the array of the deck and return(shift) the value
+        dealToP2() {
+            let dealt_card = this.deck.shift();
+            this.dealt_cards.push(dealt_card.name);
+            this.dealt_cards.push(dealt_card.imageName);
+            // p2Hand.push(dealt_card.name);
+            this.p2Hand.push(dealt_card.imageName);
+            return dealt_card;
+
+        }
+        // Creating a function to loop deal to p1 and deal to p2 for the full deck
+        deal() {
+            for (var a = 0; a < 26; a++) {
+                this.dealToP1();
+                this.dealToP2();
+            }
+        }
+        p1PlayCard() {
+            let playedCard = this.p1Hand.shift();
+            this.playedCards.push(playedCard.name);
+            this.playedCards.push(playedCard.imageName);
+            // p1Hand.push(dealt_card.name);
+            this.cardPile.push(playedCard.imageName);
+            return playedCard;
+
+        }
+
 
         //create a replace function to return most recently dealt card on the deck
         replace() {
@@ -210,18 +246,83 @@
 
 
 
+    //Timer Function
+    function startTimer() {
+        var timerInterval = setInterval(function () {
+            totalSeconds++;
+            // if(totalSeconds === 0){
+            //         console.log (true);
+            //         totalSeconds = 0;
+            //         clearInterval(timerInterval);
+            //     }
+            $("#secondsLeft").html("Timer: " + totalSeconds);
+        }, 1000);
+    }
+
+
 
     //Function to push card values to array
     function pushToP1(Deck) {
         for (var i = 0; i < 26; i++) {
             // console.log(deck.deal());
-         p1Hand.push(deck.deal());
-         
+            p1Hand.push(deck.deal().name);
 
-     }
-     console.log(p1Hand);
+
+        }
+        //  console.log(p1Hand);
+        //  console.log(p1Hand.toString());
+        // let stringQuery = p1Hand.toString();
+        // console.log(stringQuery);
     }
-pushToP1(Deck);
+
+
+    //Function to deal card from p1 to card pile
+
+    // pushToP1(Deck);
+
+
+    // // creates a new, shuffled deck to play this game with
+    // function getDeck() {
+    //     $.ajax({
+    //         url: "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
+    //         method: "GET"
+    //     }).then(function (newDeck) {
+    //         console.log("Game Deck");
+    //         console.log("------------------");
+    //         console.log(newDeck);
+    //         // defines deck ID for the game to refference
+    //         thisDeck = newDeck.deck_id;
+    //         drawCards(thisDeck);
+    //         dealDeck(thisDeck);
+    //     })
+
+    // };
+
+    //Function to draw cards
+
+    // function drawCards(thisDeck) {
+    //     $.ajax({
+    //         url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/draw/?count=26",
+    //         method: "GET"
+    //     }).then(function (response) {
+    //         console.log(response);
+
+    //     })
+
+    // }
+
+    // //Deal Deck into piles
+    // function dealDeck(thisDeck, stringQuery) {
+    //     $.ajax({
+    //         url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/pile/p1hand/add/?cards=" + stringQuery,
+    //         method: "GET"
+    //     }).then(function (p1Pile) {
+    //         console.log(p1Pile);
+    //     })
+    // };
+
+    // playGame(Deck);
+
 
 
 
