@@ -27,7 +27,7 @@
             </div>
         </span>
         <span class="navbar-text" id="secondsLeft">
-            Timer : 75
+            Timer : 00
         </span>
     </nav>
     <div class="jumbotron jumbotron-fluid">
@@ -71,7 +71,7 @@
 
 <script>
 
-
+var totalSeconds = 00;
     //Steps
     // 1. Create Deck with API Call
     // 2. 
@@ -100,6 +100,7 @@
 $("#start").on("click", function (event) {
     event.preventDefault();
    setupGame(Deck);
+   startTimer();
 })
 
     //Logic to generate values for ajax call
@@ -224,6 +225,18 @@ $("#start").on("click", function (event) {
     // module.exports = Deck;
 
 
+
+    //Timer Function
+    function startTimer(){
+    var timerInterval = setInterval(function() {
+        totalSeconds++;
+        // if(totalSeconds === 0){
+        //         console.log (true);
+        //         totalSeconds = 0;
+        //         clearInterval(timerInterval);
+        //     }
+        $("#secondsLeft").html("Timer: " + totalSeconds);}    , 1000);
+    }
  
 
 
