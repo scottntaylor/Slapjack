@@ -79,9 +79,7 @@
     // 2. 
 
     // let deck = [];
-    let p1Hand = [];
-    let p2Hand = [];
-    let cardPile = [];
+
 
 
 
@@ -92,19 +90,23 @@
         deck.deal();
         // deck.dealToP1();
         // console.log(Deck.dealt_cards)
-        console.log(p1Hand);
+        console.log(deck.p1Hand);
         // deck.dealToP2();
-        console.log(p2Hand);
+        console.log(deck.p2Hand);
 
 
+    }
+    function playGame(playedCards) {
+
+        deck.p1PlayCard();
+        console.log(deck.cardPile);
     }
     //Click handler to start game
     $("#start").on("click", function (event) {
         event.preventDefault();
         setupGame(Deck);
         startTimer();
-        deck.p1PlayCard(Deck);
-        console.log(cardPile);
+        playGame();
     })
 
     //Logic to generate values for ajax call
@@ -116,6 +118,9 @@
             this.deck = [];
             this.dealt_cards = [];
             this.playedCards = [];
+            this.p1Hand = [];
+            this.p2Hand = [];
+            this.cardPile = [];
         }
         //creating a function that will generate the deck
         generate_deck() {
@@ -179,7 +184,7 @@
             this.dealt_cards.push(dealt_card.name);
             this.dealt_cards.push(dealt_card.imageName);
             // p1Hand.push(dealt_card.name);
-            p1Hand.push(dealt_card.imageName);
+            this.p1Hand.push(dealt_card.imageName);
             return dealt_card;
 
         }
@@ -189,7 +194,7 @@
             this.dealt_cards.push(dealt_card.name);
             this.dealt_cards.push(dealt_card.imageName);
             // p2Hand.push(dealt_card.name);
-            p2Hand.push(dealt_card.imageName);
+            this.p2Hand.push(dealt_card.imageName);
             return dealt_card;
 
         }
@@ -200,26 +205,26 @@
                 this.dealToP2();
             }
         }
-        p1PlayCard(Deck) {
-        let playedCard = p1Hand.shift();
-        this.playedCards.push(playedCard.name);
-        this.playedCards.push(playedCard.imageName);
-        // p1Hand.push(dealt_card.name);
-        cardPile.push(playedCard.imageName);
-        return playedCard;
-    
+        p1PlayCard() {
+            let playedCard = this.p1Hand.shift();
+            this.playedCards.push(playedCard.name);
+            this.playedCards.push(playedCard.imageName);
+            // p1Hand.push(dealt_card.name);
+            this.cardPile.push(playedCard.imageName);
+            return playedCard;
+
         }
 
 
-    //create a replace function to return most recently dealt card on the deck
-    replace() {
-        //add the value to the deck and remove from the array from the dealt_cards
-        this.deck.unshift(this.dealt_cards.shift());
-    }
-    //reset deck back to zero
-    clear_deck() {
-        this.deck = [];
-    }
+        //create a replace function to return most recently dealt card on the deck
+        replace() {
+            //add the value to the deck and remove from the array from the dealt_cards
+            this.deck.unshift(this.dealt_cards.shift());
+        }
+        //reset deck back to zero
+        clear_deck() {
+            this.deck = [];
+        }
 
     }
     //creating a new instance of deck object
