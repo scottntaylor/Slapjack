@@ -98,7 +98,7 @@
     }
     function playGame(playedCards) {
 
-        deck.p1PlayCard();
+        deck.playCard("p1");
         console.log(deck.cardPile);
     }
     //Click handler to start game
@@ -110,6 +110,15 @@
     })
 
     //Logic to generate values for ajax call
+
+    class Card {
+        constructor(suit, value) {
+            this.suit = suit;
+            this.value = value;
+            this.name = value + suit;
+            this.imageName = "https://deckofcardsapi.com/static/img/" + value + suit + ".png"
+        }
+    }
 
     //creating a class template for a deck of cards called Deck
     class Deck {
@@ -124,18 +133,6 @@
         }
         //creating a function that will generate the deck
         generate_deck() {
-            let card = (suit, value) => {
-                this.name = value + suit;
-                // this.suit = suit;
-                // this.value = value;
-                this.imageName = "https://deckofcardsapi.com/static/img/" + value + suit + ".png"
-
-                return {
-                    name: this.name,
-                    imageName: this.imageName
-                }
-            }
-
             let values = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A'];
             let suits = ['C', 'D', 'S', 'H'];
 
@@ -144,7 +141,7 @@
                 //loop over the values
                 for (let v = 0; v < values.length; v++) {
                     //push the card object to the empty array
-                    this.deck.push(card(suits[s], values[v]));
+                    this.deck.push(new Card(suits[s], values[v]));
                 }
             }
         }
@@ -178,41 +175,41 @@
             }
         }
 
-        //creating a deal to Player 1 function, deal the top card from the array of the deck and return(shift) the value
-        dealToP1() {
-            let dealt_card = this.deck.shift();
-            this.dealt_cards.push(dealt_card.name);
-            this.dealt_cards.push(dealt_card.imageName);
-            // p1Hand.push(dealt_card.name);
-            this.p1Hand.push(dealt_card.imageName);
-            return dealt_card;
-
-        }
         //creating a deal to Player 2 function, deal the top card from the array of the deck and return(shift) the value
-        dealToP2() {
-            let dealt_card = this.deck.shift();
-            this.dealt_cards.push(dealt_card.name);
-            this.dealt_cards.push(dealt_card.imageName);
-            // p2Hand.push(dealt_card.name);
-            this.p2Hand.push(dealt_card.imageName);
+        dealTo(player) {
+            let hand = this.getHand(player);
+            let dealt_card = this.deck.pop();
+            this.dealt_cards.push(dealt_card);
+            hand.push(dealt_card);
             return dealt_card;
 
         }
         // Creating a function to loop deal to p1 and deal to p2 for the full deck
         deal() {
             for (var a = 0; a < 26; a++) {
-                this.dealToP1();
-                this.dealToP2();
+                this.dealTo("p1");
+                this.dealTo("p2");
             }
         }
-        p1PlayCard() {
-            let playedCard = this.p1Hand.shift();
-            this.playedCards.push(playedCard.name);
-            this.playedCards.push(playedCard.imageName);
-            // p1Hand.push(dealt_card.name);
-            this.cardPile.push(playedCard.imageName);
+        playCard(player) {
+            let hand = this.getHand(player);
+            let playedCard = hand.pop();
+            this.playedCards.push(playedCard);
+            this.cardPile.push(playedCard);
             return playedCard;
 
+        }
+
+        getHand(player) {
+            let hand;
+            if (player === "p1") { 
+                hand = this.p1Hand;
+            } else if (player === "p2") {
+                hand = this.p2Hand;
+            } else {
+                throw new ReferenceError("must be p1 or p2");
+            }
+            return hand;
         }
 
 
