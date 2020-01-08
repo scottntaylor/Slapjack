@@ -42,14 +42,14 @@
                 <img src="https://st.depositphotos.com/1363007/1810/i/450/depositphotos_18105995-stock-photo-card-back.jpg"
                     class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text" id="p1CardTotal">26</p>
+                    <p class="card-text" id="p1CardTotal">Cards: 26</p>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Cards</h1>
-                <img src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <img id = "cardImg" src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text" id="mainCardTotal">0</p>
+                    <p class="card-text" id="mainCardTotal">Cards: 0</p>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">
@@ -57,19 +57,19 @@
                 <img src="https://st.depositphotos.com/1363007/1810/i/450/depositphotos_18105995-stock-photo-card-back.jpg"
                     class="card-img-top" alt="...">
                 <div class="card-body">
-                    <p class="card-text" id="p2CardTotal">26</p>
+                    <p class="card-text" id="p2CardTotal">Cards: 26</p>
                 </div>
             </div>
 
 
         </div>
         <div class="container">
-                <div class="row ">
-                    <button style="width: 40% " type="button" class="btn btn-primary btn-lg">Player1 Slap!</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button style="width:40% " type="button" class="btn btn-primary btn-lg">Player2 Slap!</button>
-                </div>
+            <div class="row ">
+                <button style="width: 40% " type="button" class="btn btn-primary btn-lg">Player1 Slap!</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button style="width:40% " type="button" class="btn btn-primary btn-lg">Player2 Slap!</button>
+            </div>
         </div>
 
 </body>
@@ -77,11 +77,8 @@
 <script>
 
     var totalSeconds = 00;
-    //Steps
-    // 1. Create Deck with API Call
-    // 2. 
 
-    // let deck = [];
+
 
 
 
@@ -91,14 +88,14 @@
         console.log(deck)
         deck.shuffle();
         deck.print_deck();
-        
+
         deck.deal();
         // deck.dealToP1();
         // console.log(Deck.dealt_cards)
         console.log(deck.p1Hand);
         // deck.dealToP2();
         console.log(deck.p2Hand);
-       
+
 
     }
     function playGame(playedCards) {
@@ -137,6 +134,8 @@
             this.p2Hand = [];
             this.cardPile = [];
         }
+
+
         //creating a function that will generate the deck
         generate_deck() {
             let values = ['2', '3', '4', '5', '6', '7', '8', '9', '0', 'J', 'Q', 'K', 'A'];
@@ -195,6 +194,7 @@
             for (var a = 0; a < 26; a++) {
                 this.dealTo("p1");
                 this.dealTo("p2");
+
             }
         }
         playCard(player) {
@@ -202,34 +202,43 @@
             let playedCard = hand.pop();
             this.playedCards.push(playedCard);
             this.cardPile.push(playedCard);
+            if (playedCard != undefined) {
+                document.getElementById("cardImg").src = playedCard.imageName;
+            }
+            $("#p1CardTotal").html("Cards: " + this.p1Hand.length);
+            $("#mainCardTotal").html("Cards: " + this.cardPile.length);
+            $("#p2CardTotal").html("Cards: " + this.p2Hand.length);
             return playedCard;
 
         }
-        play(){
+        play() {
             var p1 = true;
             let self = this
-            setInterval(function (){
-                if (p1===true){
+            setInterval(function () {
+                if (p1 === true) {
                     self.playCard("p1");
-                    p1=false;
+                    p1 = false;
                     console.log(self.cardPile);
                 }
-                else{
-                self.playCard("p2");
-                p1=true;
-                console.log(self.cardPile);
+                else {
+                    self.playCard("p2");
+                    p1 = true;
+                    console.log(self.cardPile);
                 }
-            },2000)
+            }, 2000)
 
-            
+
         }
 
         getHand(player) {
             let hand;
-            if (player === "p1") { 
+            if (player === "p1") {
                 hand = this.p1Hand;
+
             } else if (player === "p2") {
                 hand = this.p2Hand;
+
+
             } else {
                 throw new ReferenceError("must be p1 or p2");
             }
@@ -251,7 +260,7 @@
     //creating a new instance of deck object
     deck = new Deck();
 
-    
+
 
     // module.exports = Deck;
 
