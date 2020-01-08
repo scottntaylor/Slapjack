@@ -98,7 +98,8 @@
     }
     function playGame(playedCards) {
 
-        deck.playCard("p1");
+        // deck.playCard("p1");
+        deck.play("p1", "p2");
         console.log(deck.cardPile);
     }
     //Click handler to start game
@@ -199,6 +200,12 @@
             return playedCard;
 
         }
+        play(){
+            for(var e = 0; e < 26; e++){
+                this.playCard("p1");
+                this.playCard("p2");
+            }
+        }
 
         getHand(player) {
             let hand;
@@ -258,67 +265,7 @@
 
 
 
-    //Function to push card values to array
-    function pushToP1(Deck) {
-        for (var i = 0; i < 26; i++) {
-            // console.log(deck.deal());
-            p1Hand.push(deck.deal().name);
 
-
-        }
-        //  console.log(p1Hand);
-        //  console.log(p1Hand.toString());
-        // let stringQuery = p1Hand.toString();
-        // console.log(stringQuery);
-    }
-
-
-    //Function to deal card from p1 to card pile
-
-    // pushToP1(Deck);
-
-
-    // // creates a new, shuffled deck to play this game with
-    // function getDeck() {
-    //     $.ajax({
-    //         url: "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",
-    //         method: "GET"
-    //     }).then(function (newDeck) {
-    //         console.log("Game Deck");
-    //         console.log("------------------");
-    //         console.log(newDeck);
-    //         // defines deck ID for the game to refference
-    //         thisDeck = newDeck.deck_id;
-    //         drawCards(thisDeck);
-    //         dealDeck(thisDeck);
-    //     })
-
-    // };
-
-    //Function to draw cards
-
-    // function drawCards(thisDeck) {
-    //     $.ajax({
-    //         url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/draw/?count=26",
-    //         method: "GET"
-    //     }).then(function (response) {
-    //         console.log(response);
-
-    //     })
-
-    // }
-
-    // //Deal Deck into piles
-    // function dealDeck(thisDeck, stringQuery) {
-    //     $.ajax({
-    //         url: "https://deckofcardsapi.com/api/deck/" + thisDeck + "/pile/p1hand/add/?cards=" + stringQuery,
-    //         method: "GET"
-    //     }).then(function (p1Pile) {
-    //         console.log(p1Pile);
-    //     })
-    // };
-
-    // playGame(Deck);
 
 
 
