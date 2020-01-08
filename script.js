@@ -17,8 +17,8 @@ socket.on('chat-message', data => {
     appendMessage(data);
 });
 
-socket.on('user-message', name => {
-    appendMessage(`${name} connected`);
+socket.on('user-connected', name => {
+    appendMessage(`${data.name}; ${data.message}`);
 });
 
 //whenever we submit our form, we want to stop our form from submitting
@@ -29,6 +29,8 @@ messageForm.addEventListener('submit', e => {
 
     //get input message
     const message = messageInput.value;
+    appendMessage(`You: {message}`);
+
     //emit is sending information from the client to the server
     socket.emit('send-chat-message', message);
 

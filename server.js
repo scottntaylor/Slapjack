@@ -21,7 +21,7 @@ io.on('connection', socket => {
         //console.log(message);
 
         //send message to every single other client to the server except for the person who sent the message
-        socket.broadcast.emit('chat-message', message);
+        socket.broadcast.emit('chat-message', {message: message, name: users[socket.io]});
     });
 });
 
