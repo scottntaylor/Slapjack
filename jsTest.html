@@ -228,33 +228,38 @@
                     p1 = true;
                     console.log(self.cardPile);
                 }
-            }, 1000)
+            }, 2000)
 
 
         }
         slap1() {
             let pileCard = this.cardPile.pop();
-            console.log(pileCard.value);
+            console.log(pileCard);
             if (pileCard.value == 'J') {
-                // this.p1Hand.push(pileCard);
-                for (var i = 0; i < this.cardPile.length; i++) {
-                    this.p1Hand.push(this.cardPile.pop());
-                }
+                 this.p1Hand.push(pileCard);
+                // for (var i = 0; i < this.cardPile.length; i++) {
+                //     this.p1Hand.push(this.cardPile.pop());
+                // }
+                this.p1Hand=this.p1Hand.concat(this.cardPile);
+                this.cardPile = [];
             }
             else {
-                this.cardPile.push(this.p1Hand.pop());
+                this.p2Hand.push(this.p1Hand.pop());
             }
         }
         slap2() {
             let pileCard = this.cardPile.pop();
             if (pileCard.value == 'J') {
-                // p2Hand.push(pileCard);
-                for (var i = 0; i < this.cardPile.length; i++) {
-                   this.p2Hand.push(this.cardPile.pop());
-                }
+                 p2Hand.push(pileCard);
+                // for (var i = 0; i < this.cardPile.length; i++) {
+                //    this.p2Hand.push(this.cardPile.pop());
+                // }
+                this.p2Hand=this.p2Hand.concat(this.cardPile);
+                this.cardPile = [];
+
             }
             else {
-                this.cardPile.push(p2Hand.pop());
+                this.p1Hand.push(p2Hand.pop());
             }
         }
         
