@@ -1,0 +1,26 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "description": "Creating a Chat room:\r Install the dependencies.",
+  "main": "server.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottntaylor/Project-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scottntaylor/Project-2/issues"
+  },
+  "homepage": "https://github.com/scottntaylor/Project-2#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
