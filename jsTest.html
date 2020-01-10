@@ -67,13 +67,10 @@
         <div class="container">
 
             <div class="row ">
-                <button style="width: 40% " type="button" class="btn btn-primary btn-lg">Player1 Slap!</button>
+                <button style="width: 40% " type="button" id="slapBtn1" class="btn btn-primary btn-lg">Player1 Slap!</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <button style="width:40% " type="button" class="btn btn-primary btn-lg">Player2 Slap!</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button style="width:10% " type="button" class="btn btn-primary btn-lg">Chat</button>
+                <button style="width:40% " type="button" id="slapBtn2" class="btn btn-primary btn-lg">Player2 Slap!</button>
             </div>
 
         </div>
@@ -231,10 +228,36 @@
                     p1 = true;
                     console.log(self.cardPile);
                 }
-            }, 2000)
+            }, 1000)
 
 
         }
+        slap1() {
+            let pileCard = this.cardPile.pop();
+            console.log(pileCard.value);
+            if (pileCard.value == 'J') {
+                // this.p1Hand.push(pileCard);
+                for (var i = 0; i < this.cardPile.length; i++) {
+                    this.p1Hand.push(this.cardPile.pop());
+                }
+            }
+            else {
+                this.cardPile.push(this.p1Hand.pop());
+            }
+        }
+        slap2() {
+            let pileCard = this.cardPile.pop();
+            if (pileCard.value == 'J') {
+                // p2Hand.push(pileCard);
+                for (var i = 0; i < this.cardPile.length; i++) {
+                   this.p2Hand.push(this.cardPile.pop());
+                }
+            }
+            else {
+                this.cardPile.push(p2Hand.pop());
+            }
+        }
+        
 
         getHand(player) {
             let hand;
@@ -270,7 +293,15 @@
 
     // module.exports = Deck;
 
-
+    $("#slapBtn1").on("click", function (event) {
+        console.log("in slap1");
+        event.preventDefault();
+        deck.slap1();
+    });
+    $("#slapBtn2").on("click", function (event) {
+        event.preventDefault();
+        deck.slap2();
+    });
 
     //Timer Function
     function startTimer() {
