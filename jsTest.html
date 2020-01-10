@@ -48,7 +48,7 @@
             </div>
             <div class="card" style="width: 18rem;">
                 <h1 class="align-self-center">Cards</h1>
-                <img id = "cardImg" src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
+                <img id="cardImg" src="https://deckofcardsapi.com/static/img/KH.png" class="card-img-top" alt="...">
                 <div class="card-body">
                     <p class="card-text" id="mainCardTotal">Cards: 0</p>
                 </div>
@@ -67,10 +67,12 @@
         <div class="container">
 
             <div class="row ">
-                <button style="width: 40% " type="button" id="slapBtn1" class="btn btn-primary btn-lg">Player1 Slap!</button>
+                <button style="width: 40% " type="button" id="slapBtn1" class="btn btn-primary btn-lg">Player1
+                    Slap!</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <button style="width:40% " type="button" id="slapBtn2" class="btn btn-primary btn-lg">Player2 Slap!</button>
+                <button style="width:40% " type="button" id="slapBtn2" class="btn btn-primary btn-lg">Player2
+                    Slap!</button>
             </div>
 
         </div>
@@ -80,46 +82,38 @@
 <script>
 
     var totalSeconds = 00;
-
-
+    var gamePlaying = true;
+    let deck;
 
 
 
 
     function setupGame(dealt_cards) {
+        //creating a new instance of deck object
+        deck = new Deck;
         deck.generate_deck();
-        console.log(deck)
+        console.log(gamePlaying)
         deck.shuffle();
         deck.print_deck();
-
         deck.deal();
-        // deck.dealToP1();
-        // console.log(Deck.dealt_cards)
-        console.log(deck.p1Hand);
-        // deck.dealToP2();
-        console.log(deck.p2Hand);
-
+        if (gamePlaying === true) {
+            playGame(deck);
+        }
 
     }
-    function playGame(playedCards) {
 
-        // deck.playCard("p1");
-        deck.play("p1", "p2");
-        console.log(deck.cardPile);
-        if (deck.p1Hand.length === 0){
-            deck.endGame();
-        }else if(deck.p2Hand.length === 0){
-            deck.endGame();
-        }
-        
+    function playGame(deck) {
+
+        deck.play();
+
+
     }
     //Click handler to start game
     $("#start").on("click", function (event) {
         event.preventDefault();
-        setupGame(Deck);
+        setupGame();
         startTimer();
-        playGame();
-        
+
     })
 
     //Logic to generate values for ajax call
@@ -169,7 +163,7 @@
             } else {
                 //for every card in the deck, print that card to the console
                 for (let c = 0; c < this.deck.length; c++) {//c = index of each card
-                    // console.log(this.deck[c]);
+
                 }
             }
         }
@@ -222,20 +216,34 @@
 
         }
         play() {
+            console.log("is running")
             var p1 = true;
-            let self = this
+            let self = this;
             setInterval(function () {
-                if (p1 === true) {
-                    self.playCard("p1");
-                    p1 = false;
-                    console.log(self.cardPile);
+                if (self.p1Hand.length <= 0) {
+                    gamePlaying = false
+                    alert("Player 2 Wins!");
+                } else if (self.p2Hand.length <= 0) {
+                    gamePlaying = false;
+                    alert("Player 1 Wins!");
                 }
-                else {
-                    self.playCard("p2");
-                    p1 = true;
-                    console.log(self.cardPile);
+                if (gamePlaying === true) {
+                    if (p1 === true) {
+                        self.playCard("p1");
+                        p1 = false;
+                        // console.log(self.cardPile);
+                        console.log(self.p1Hand.length);
+                    }
+                    else {
+                        self.playCard("p2");
+                        p1 = true;
+                        // console.log(self.cardPile);
+                        console.log(self.p1Hand.length);
+                    }
                 }
-            }, 2000)
+
+
+            }, 500)
 
 
         }
@@ -243,11 +251,8 @@
             let pileCard = this.cardPile.pop();
             console.log(pileCard);
             if (pileCard.value == 'J') {
-                 this.p1Hand.push(pileCard);
-                // for (var i = 0; i < this.cardPile.length; i++) {
-                //     this.p1Hand.push(this.cardPile.pop());
-                // }
-                this.p1Hand=this.p1Hand.concat(this.cardPile);
+                this.p1Hand.push(pileCard);
+                this.p1Hand = this.p1Hand.concat(this.cardPile);
                 this.cardPile = [];
             }
             else {
@@ -257,11 +262,8 @@
         slap2() {
             let pileCard = this.cardPile.pop();
             if (pileCard.value == 'J') {
-                 p2Hand.push(pileCard);
-                // for (var i = 0; i < this.cardPile.length; i++) {
-                //    this.p2Hand.push(this.cardPile.pop());
-                // }
-                this.p2Hand=this.p2Hand.concat(this.cardPile);
+                p2Hand.push(pileCard);
+                this.p2Hand = this.p2Hand.concat(this.cardPile);
                 this.cardPile = [];
 
             }
@@ -269,7 +271,7 @@
                 this.p1Hand.push(p2Hand.pop());
             }
         }
-        
+
 
         getHand(player) {
             let hand;
@@ -286,10 +288,11 @@
             return hand;
         }
 
-        //Function to end the game
-        endGame() {
-
-        }
+        // //Function to end the game
+        // endGame() {
+        //     gamePlaying = false;
+        //     console.log(gamePlaying);
+        // }
 
 
         //create a replace function to return most recently dealt card on the deck
@@ -303,8 +306,7 @@
         }
 
     }
-    //creating a new instance of deck object
-    deck = new Deck();
+
 
 
 
@@ -324,11 +326,7 @@
     function startTimer() {
         var timerInterval = setInterval(function () {
             totalSeconds++;
-            // if(totalSeconds === 0){
-            //         console.log (true);
-            //         totalSeconds = 0;
-            //         clearInterval(timerInterval);
-            //     }
+
             $("#secondsLeft").html("Timer: " + totalSeconds);
         }, 1000);
     }
