@@ -70,9 +70,13 @@
                 <button style="width: 40% " type="button" id="slapBtn1" class="btn btn-primary btn-lg">Player1 Slap!</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;
+<<<<<<< HEAD
 
                 <button style="width:40% " type="button" id="slapBtn2" class="btn btn-primary btn-lg">Player2 Slap!</button>
 
+=======
+                <button style="width:40% " type="button" id="slapBtn2" class="btn btn-primary btn-lg">Player2 Slap!</button>
+>>>>>>> 88f359e9f12c8a3b9257e6457a6d77ca886d47f7
             </div>
 
         </div>
@@ -108,6 +112,12 @@
         // deck.playCard("p1");
         deck.play("p1", "p2");
         console.log(deck.cardPile);
+        if (deck.p1Hand.length === 0){
+            deck.endGame();
+        }else if(deck.p2Hand.length === 0){
+            deck.endGame();
+        }
+        
     }
     //Click handler to start game
     $("#start").on("click", function (event) {
@@ -115,6 +125,7 @@
         setupGame(Deck);
         startTimer();
         playGame();
+        
     })
 
     //Logic to generate values for ajax call
@@ -230,33 +241,38 @@
                     p1 = true;
                     console.log(self.cardPile);
                 }
-            }, 1000)
+            }, 2000)
 
 
         }
         slap1() {
             let pileCard = this.cardPile.pop();
-            console.log(pileCard.value);
+            console.log(pileCard);
             if (pileCard.value == 'J') {
-                // this.p1Hand.push(pileCard);
-                for (var i = 0; i < this.cardPile.length; i++) {
-                    this.p1Hand.push(this.cardPile.pop());
-                }
+                 this.p1Hand.push(pileCard);
+                // for (var i = 0; i < this.cardPile.length; i++) {
+                //     this.p1Hand.push(this.cardPile.pop());
+                // }
+                this.p1Hand=this.p1Hand.concat(this.cardPile);
+                this.cardPile = [];
             }
             else {
-                this.cardPile.push(this.p1Hand.pop());
+                this.p2Hand.push(this.p1Hand.pop());
             }
         }
         slap2() {
             let pileCard = this.cardPile.pop();
             if (pileCard.value == 'J') {
-                // p2Hand.push(pileCard);
-                for (var i = 0; i < this.cardPile.length; i++) {
-                   this.p2Hand.push(this.cardPile.pop());
-                }
+                 p2Hand.push(pileCard);
+                // for (var i = 0; i < this.cardPile.length; i++) {
+                //    this.p2Hand.push(this.cardPile.pop());
+                // }
+                this.p2Hand=this.p2Hand.concat(this.cardPile);
+                this.cardPile = [];
+
             }
             else {
-                this.cardPile.push(p2Hand.pop());
+                this.p1Hand.push(p2Hand.pop());
             }
         }
         
@@ -274,6 +290,11 @@
                 throw new ReferenceError("must be p1 or p2");
             }
             return hand;
+        }
+
+        //Function to end the game
+        endGame() {
+
         }
 
 
