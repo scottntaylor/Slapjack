@@ -1,6 +1,8 @@
 //require express
 const express = require('express');
 const app = express();
+var db = require("./models");
+var PORT = process.env.PORT || 8080;
 const server = require('http').Server(app);
 
 //creating server using socket.io
@@ -12,8 +14,14 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-const rooms = { name: {} };
 
+const rooms = { name: {} };
+db.sequelize.sync().then(function() {
+    app.listen(PORT, function() {
+      console.log("App listening on PORT " + PORT);
+    });
+  });
+  
 app.get('/', (req, res) => {
     res.render('chat', { rooms: rooms });
 });
