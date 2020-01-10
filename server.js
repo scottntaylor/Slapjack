@@ -15,6 +15,10 @@ app.use(express.urlencoded({ extended: true }));
 const rooms = { name: {} };
 
 app.get('/', (req, res) => {
+    res.render('index', { rooms: rooms });
+});
+
+app.get('/', (req, res) => {
     res.render('chat', { rooms: rooms });
 });
 
