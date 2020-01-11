@@ -140,9 +140,13 @@ class Deck {
             if (self.p1Hand.length <= 0) {
                 gamePlaying = false
                 alert("Player 2 Wins!");
+                Leaderboard.update({Wins: sequelize.col('Wins')+1},
+                {where:{user:"Player 2"} })
             } else if (self.p2Hand.length <= 0) {
                 gamePlaying = false;
                 alert("Player 1 Wins!");
+                Leaderboard.update({Wins: sequelize.col('Wins')+1},
+                {where:{user:"Player 1"} })
             }
             if (gamePlaying === true) {
                 if (p1 === true) {
@@ -160,7 +164,7 @@ class Deck {
             }
 
 
-        }, 500)
+        }, 1000)
 
 
     }

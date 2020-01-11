@@ -2,9 +2,9 @@
   "name": "project-2",
   "version": "1.0.0",
   "description": "Creating a Chat room:\r Install the dependencies.",
-  "main": "server.js",
+  "main": "server1.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server1.js"
   },
   "repository": {
     "type": "git",
